@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('reference_code')->nullable();
             $table->double('grand_total');
+            $table->integer('status')->comment('1=unpaid, 2=paid, 3=cancel, 4=withdrawn')->default(1);
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('payment_method_id')->unsigned();
             $table->timestamps();
