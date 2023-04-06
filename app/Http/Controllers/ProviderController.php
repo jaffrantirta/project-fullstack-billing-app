@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Provider;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ProviderController extends Controller
@@ -16,7 +14,7 @@ class ProviderController extends Controller
     public function index()
     {
         return Inertia::render('Provider/index', [
-            'providers' => Provider::latest()->paginate(),
+            'providers' => Provider::with('user')->with('category')->latest()->paginate(),
             'session' => session()->all(),
         ]);
     }

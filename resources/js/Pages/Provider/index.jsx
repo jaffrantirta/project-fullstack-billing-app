@@ -1,6 +1,14 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import Table from '@/Components/Table';
+import Tr from '@/Components/Tr';
+import Th from '@/Components/Th';
+import Td from '@/Components/Td';
+import NavLink from '@/Components/NavLink';
+import PrimaryButton from '@/Components/PrimaryButton';
+import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/solid'
+import Paginate from '@/Components/Paginate';
 
 export default function index(props) {
     console.log(props);
@@ -13,31 +21,39 @@ export default function index(props) {
         >
             <Head title="Provider" />
 
-            <div>
-                <table className="table-auto">
+            <div className='flex justify-center md:justify-end p-10'>
+                <PrimaryButton><PlusIcon className='w-5 mr-3' /> Tambah</PrimaryButton>
+            </div>
+
+            <div className='overflow-x-auto p-5 md:p-10'>
+                <Table>
                     <thead>
-                        <tr>
-                            <th className="px-4 py-2">Name</th>
-                            <th className="px-4 py-2">Email</th>
-                            <th className="px-4 py-2">Phone</th>
-                            <th className="px-4 py-2">Address</th>
-                            <th className="px-4 py-2">Action</th>
-                        </tr>
+                        <Tr>
+                            <Th>No.</Th>
+                            <Th>Pemilik</Th>
+                            <Th>Nama Provider</Th>
+                            <Th>Alamat</Th>
+                            <Th>Kategori</Th>
+                            <Th>Aksi</Th>
+                        </Tr>
                     </thead>
                     <tbody>
-                        {props.providers.data.map((provider) => (
-                            <tr key={provider.id}>
-                                <td className="border px-4 py-2">{provider.name}</td>
-                                <td className="border px-4 py-2">{provider.email}</td>
-                                <td className="border px-4 py-2">{provider.phone}</td>
-                                <td className="border px-4 py-2">{provider.address}</td>
-                                <td className="border px-4 py-2">
-                                    <a href={`/provider/${provider.id}/edit`} className="text-blue-500">Edit</a>
-                                </td>
-                            </tr>
+                        {props.providers.data.map((provider, index) => (
+                            <Tr key={index}>
+                                <Td>{props.providers.from + index}</Td>
+                                <Td>{provider.user.name}</Td>
+                                <Td>{provider.name}</Td>
+                                <Td>{provider.address}</Td>
+                                <Td>{provider.category.name}</Td>
+                                <Td>
+                                    <NavLink><PencilIcon className='w-5' /></NavLink>
+                                    <NavLink><TrashIcon className='w-5 text-red-400' /></NavLink>
+                                </Td>
+                            </Tr>
                         ))}
                     </tbody>
-                </table>
+                </Table>
+                <Paginate className={'mt-5'} data={props.providers} />
 
             </div>
         </AuthenticatedLayout>
