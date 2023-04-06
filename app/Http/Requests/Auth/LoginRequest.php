@@ -49,6 +49,10 @@ class LoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
+
+        $user = User::find(Auth::id())->with('roles')->first();
+        session()->put('roles', $user->roles);
+
         RateLimiter::clear($this->throttleKey());
     }
 
