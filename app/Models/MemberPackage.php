@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class MemberPackage extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'package_id',
+        'member_id',
+    ];
 }

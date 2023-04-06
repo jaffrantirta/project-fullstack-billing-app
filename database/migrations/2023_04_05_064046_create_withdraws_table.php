@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('provider_id')->unsigned();
             $table->integer('status')->comment('1=pending, 2=success, 3=cancel');
+            $table->double('grand_total');
             $table->timestamps();
         });
     }
