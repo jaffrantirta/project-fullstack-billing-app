@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Provider;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ProviderController extends Controller
@@ -27,8 +28,11 @@ class ProviderController extends Controller
     }
     public function store(ProviderStoreRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
-        Provider::create($request->merge(['user_id' => $user->id])->except(['email']));
+        DB::beginTransaction();
+        $user = User::create($request->only('email', 'name', 'password'));
+        $user->provider()->create($request->only('address', 'category_id') + ['name' => $request->provider_name]);
+        $user->assignRole('provider');
+        DB::commit();
         return back();
     }
     public function show(Provider $provider)
