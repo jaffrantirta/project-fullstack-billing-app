@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Table from '@/Components/Table';
 import Tr from '@/Components/Tr';
 import Th from '@/Components/Th';
@@ -10,7 +10,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/solid'
 import Paginate from '@/Components/Paginate';
 
-export default function index(props) {
+export default function Index(props) {
     console.log(props);
     //make table with tailwind in this page
     return (
@@ -22,7 +22,7 @@ export default function index(props) {
             <Head title="Provider" />
 
             <div className='flex justify-center md:justify-end p-10'>
-                <PrimaryButton><PlusIcon className='w-5 mr-3' /> Tambah</PrimaryButton>
+                <Link href={route('provider.create')}><PrimaryButton><PlusIcon className='w-5 mr-3' /> Tambah</PrimaryButton></Link>
             </div>
 
             <div className='overflow-x-auto p-5 md:p-10'>
