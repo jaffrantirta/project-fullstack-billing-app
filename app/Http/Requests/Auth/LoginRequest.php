@@ -50,7 +50,7 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        $user = User::find(Auth::id())->with('roles')->first();
+        $user = User::where('email', $this->email)->with('roles')->first();
         session()->put('roles', $user->roles);
 
         RateLimiter::clear($this->throttleKey());
