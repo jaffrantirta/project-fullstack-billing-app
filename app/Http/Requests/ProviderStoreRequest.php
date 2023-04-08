@@ -17,7 +17,6 @@ class ProviderStoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
-            'provider_name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'max:200'],
             'category_id' => ['required', 'exists:categories,id'],
         ];

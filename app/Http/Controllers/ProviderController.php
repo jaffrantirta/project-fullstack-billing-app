@@ -30,7 +30,7 @@ class ProviderController extends Controller
     {
         DB::beginTransaction();
         $user = User::create($request->only('email', 'name', 'password'));
-        $user->provider()->create($request->only('address', 'category_id') + ['name' => $request->provider_name]);
+        $user->provider()->create($request->only('name', 'address', 'category_id'));
         $user->assignRole('provider');
         DB::commit();
         return back();

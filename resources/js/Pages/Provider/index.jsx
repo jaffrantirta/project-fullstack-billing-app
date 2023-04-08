@@ -30,8 +30,7 @@ export default function Index(props) {
                     <thead>
                         <Tr>
                             <Th>No.</Th>
-                            <Th>Pemilik</Th>
-                            <Th>Nama Provider</Th>
+                            <Th>Nama</Th>
                             <Th>Alamat</Th>
                             <Th>Kategori</Th>
                             <Th>Aksi</Th>
@@ -41,7 +40,6 @@ export default function Index(props) {
                         {props.providers.data.map((provider, index) => (
                             <Tr key={index}>
                                 <Td>{props.providers.from + index}</Td>
-                                <Td>{provider.user.name}</Td>
                                 <Td>{provider.name}</Td>
                                 <Td>{provider.address}</Td>
                                 <Td>{provider.category.name}</Td>

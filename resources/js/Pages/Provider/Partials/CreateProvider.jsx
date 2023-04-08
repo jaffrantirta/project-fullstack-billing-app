@@ -11,7 +11,6 @@ export default function CreateProvider({ className = '', categories }) {
         name: '',
         email: '',
         password: '',
-        provider_name: '',
         address: '',
         category_id: '',
     });
@@ -33,104 +32,96 @@ export default function CreateProvider({ className = '', categories }) {
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Nama" />
+                <div className='grid md:grid-cols-2 gap-5'>
+                    <div>
+                        <InputLabel htmlFor="name" value="Nama" />
 
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
+                        <TextInput
+                            id="name"
+                            className="mt-1 block w-full"
+                            value={data.name}
+                            onChange={(e) => setData('name', e.target.value)}
+                            required
+                            isFocused
+                            autoComplete="name"
+                        />
 
-                    <InputError className="mt-2" message={errors.name} />
+                        <InputError className="mt-2" message={errors.name} />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="email" value="Email" />
+
+                        <TextInput
+                            id="email"
+                            type="email"
+                            className="mt-1 block w-full"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            required
+                            autoComplete="email"
+                        />
+
+                        <InputError className="mt-2" message={errors.email} />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="password" value="Password" />
+
+                        <TextInput
+                            id="password"
+                            type="password"
+                            className="mt-1 block w-full"
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            required
+                        />
+
+                        <InputError className="mt-2" message={errors.password} />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="category_id" value="Kategori" />
+
+                        <Select
+                            id="category_id"
+                            name="category_id"
+                            className="mt-1 block w-full"
+                            value={data.category_id}
+                            onChange={(e) => setData('category_id', e.target.value)}
+                            required
+                        >
+                            <option value="">Pilih kategori</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>{category.name}</option>
+                            ))}
+                        </Select>
+
+
+                        <InputError className="mt-2" message={errors.category_id} />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="address" value="Alamat" />
+
+                        <TextInput
+                            isTextArea={true}
+                            id="address"
+                            type="text"
+                            className="mt-1 block w-full"
+                            value={data.address}
+                            onChange={(e) => setData('address', e.target.value)}
+                            required
+                        />
+
+                        <InputError className="mt-2" message={errors.address} />
+                    </div>
+
+
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="email"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        className="mt-1 block w-full"
-                        value={data.password}
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
-
-                    <InputError className="mt-2" message={errors.password} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="provider_name" value="Nama Provider" />
-
-                    <TextInput
-                        id="provider_name"
-                        className="mt-1 block w-full"
-                        value={data.provider_name}
-                        onChange={(e) => setData('provider_name', e.target.value)}
-                        required
-                        isFocused
-                    />
-
-                    <InputError className="mt-2" message={errors.provider_name} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="address" value="Alamat" />
-
-                    <TextInput
-                        isTextArea={true}
-                        id="address"
-                        type="text"
-                        className="mt-1 block w-full"
-                        value={data.address}
-                        onChange={(e) => setData('address', e.target.value)}
-                        required
-                    />
-
-                    <InputError className="mt-2" message={errors.address} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="category_id" value="Kategori" />
-
-                    <Select
-                        id="category_id"
-                        name="category_id"
-                        className="mt-1 block w-full"
-                        value={data.category_id}
-                        onChange={(e) => setData('category_id', e.target.value)}
-                        required
-                    >
-                        <option value="">Pilih kategori</option>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.name}</option>
-                        ))}
-                    </Select>
 
 
-                    <InputError className="mt-2" message={errors.category_id} />
-                </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Simpan</PrimaryButton>
