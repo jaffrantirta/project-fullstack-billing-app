@@ -6,28 +6,33 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import Select from '@/Components/Select';
 
-export default function CreateProvider({ className = '', categories }) {
-    const { data, setData, post, errors, reset, processing, recentlySuccessful } = useForm({
-        name: '',
-        email: '',
+export default function FormProvider({ className = '', categories, ...props }) {
+    const { data, setData, post, put, errors, hasErrors, reset, processing, recentlySuccessful } = useForm({
+        name: props.provider?.name || '',
+        email: props.provider?.user.email || '',
         password: '',
-        address: '',
-        category_id: '',
+        address: props.provider?.address || '',
+        category_id: props.provider?.category_id || '',
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('provider.store'));
-        reset();
+        if (props.isUpdate) {
+            console.log(props.provider.id);
+            put(route('provider.update', props.provider.id));
+        } else {
+            post(route('provider.store'));
+            hasErrors ? reset('password') : reset();
+        }
     };
 
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Buat provider</h2>
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">{props.isUpdate ? 'Edit provider' : 'Buat provider'}</h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Mohon isi form berikut untuk membuat provider baru.
+                    {props.isUpdate ? 'Edit provider' : 'Mohon isi form berikut untuk membuat provider baru.'}
                 </p>
             </header>
 
@@ -65,20 +70,22 @@ export default function CreateProvider({ className = '', categories }) {
                         <InputError className="mt-2" message={errors.email} />
                     </div>
 
-                    <div>
-                        <InputLabel htmlFor="password" value="Password" />
+                    {!props.isUpdate && (
+                        <div>
+                            <InputLabel htmlFor="password" value="Password" />
 
-                        <TextInput
-                            id="password"
-                            type="password"
-                            className="mt-1 block w-full"
-                            value={data.password}
-                            onChange={(e) => setData('password', e.target.value)}
-                            required
-                        />
+                            <TextInput
+                                id="password"
+                                type="password"
+                                className="mt-1 block w-full"
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                required
+                            />
 
-                        <InputError className="mt-2" message={errors.password} />
-                    </div>
+                            <InputError className="mt-2" message={errors.password} />
+                        </div>
+                    )}
 
                     <div>
                         <InputLabel htmlFor="category_id" value="Kategori" />
