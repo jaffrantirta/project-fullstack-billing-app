@@ -4,60 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $packages = Package::where('provider_id', auth()->user()->provider->id)->latest();
 
-    /**
-     * Show the form for creating a new resource.
-     */
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $packages->where(function ($query) use ($search) {
+                $query->where('description', 'like', '%' . $search . '%')
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('fee', 'like', '%' . $search . '%')
+                    ->orWhere('frequency', 'like', '%' . $search . '%')
+                    ->orWhere('billing_day', 'like', '%' . $search . '%');
+            });
+        }
+
+        $packages = $packages->paginate();
+
+        return Inertia::render('Package/Index', [
+            'session' => session()->all(),
+            'packages' => $packages,
+        ]);
+    }
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Package $package)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Package $package)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Package $package)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Package $package)
     {
         //

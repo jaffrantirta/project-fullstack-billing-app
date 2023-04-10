@@ -35,6 +35,9 @@ export default function Authenticated({ children, ...props }) {
                                         <NavLink href={route('member.index')} active={route().current('member.index')}>
                                             Member
                                         </NavLink>
+                                        <NavLink href={route('package.index')} active={route().current('package.index')}>
+                                            Paket
+                                        </NavLink>
                                     </>
                                 )}
                             </div>

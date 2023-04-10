@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('provider', ProviderController::class);
     Route::resource('member', MemberController::class);
+    Route::resource('package', PackageController::class);
 });
 
 

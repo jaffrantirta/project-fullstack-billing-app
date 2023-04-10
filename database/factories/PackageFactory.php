@@ -21,8 +21,9 @@ class PackageFactory extends Factory
             'name' => $this->faker->name,
             'fee' => $this->faker->randomFloat(2, 0, 1000),
             'description' => $this->faker->text,
-            'frequency' => $this->faker->randomElement([1, 12]),
+            'frequency' => 1,
             'provider_id' => Provider::factory(),
+            'billing_day' => $this->faker->randomElement([1, 15, 30]),
         ];
     }
 }
