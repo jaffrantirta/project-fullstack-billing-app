@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('account_number');
             $table->bigInteger('provider_id')->unsigned();
+            $table->string('name');
             $table->timestamps();
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
         });

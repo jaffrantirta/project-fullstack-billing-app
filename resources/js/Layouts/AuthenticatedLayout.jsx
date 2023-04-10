@@ -30,6 +30,13 @@ export default function Authenticated({ children, ...props }) {
                                         </NavLink>
                                     </>
                                 )}
+                                {props.session.roles && props.session.roles.some(role => role.name === 'provider') && (
+                                    <>
+                                        <NavLink href={route('member.index')} active={route().current('member.index')}>
+                                            Member
+                                        </NavLink>
+                                    </>
+                                )}
                             </div>
                         </div>
 

@@ -19,6 +19,7 @@ class MemberFactory extends Factory
     {
         return [
             'provider_id' => Provider::factory(),
+            'name' => $this->faker->name,
             'account_number' => $this->faker->bankAccountNumber,
         ];
     }
